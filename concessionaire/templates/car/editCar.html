@@ -1,0 +1,58 @@
+{% extends 'car/base/header.html' %}
+
+{% block content %}
+<form action="{% url 'carSave' car.boilerplate %}" method="post">
+    {% csrf_token %}
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-12">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Edit car
+                </h1>
+            </div>
+            <div
+                class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+                <div class="relative flex-grow w-full">
+                    <label for="boilerplate" class="leading-7 text-sm text-gray-600">Boilerplate</label>
+                    <input type="text" id="boilerplate" name="boilerplate" value="{{ car.boilerplate }}" required
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+                <div class="relative flex-grow w-full">
+                    <label for="brand" class="leading-7 text-sm text-gray-600">Brand</label>
+                    <select name="brand" id="brand" value="{{car.brand}}"
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        {% for brand in brand_list %}
+                        {% if car.brand == brand %}
+                        <option value="{{brand}}" selected>{{brand}}</option>
+                        {% else %}
+                        <option value="{{brand}}">{{brand}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="relative flex-grow w-full">
+                    <label for="model" class="leading-7 text-sm text-gray-600">Model</label>
+                    <select name="model" id="model"
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-2.5 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        {% for model in model_list %}
+                        {% if car.model == model %}
+                        <option value="{{model}}" selected>{{model}}</option>
+                        {% else %}
+                        <option value="{{model}}">{{model}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="relative flex-grow w-full">
+                    <label for="creation_date" class="leading-7 text-sm text-gray-600">Creation Date</label>
+                    <input type="date" id="creation_date" name="creation_date"
+                        value="{{ car.creation_date | date:'Y-m-d' }}"
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-transparent focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+                <button
+                    class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"
+                    type="submit">Save</button>
+            </div>
+        </div>
+    </section>
+</form>
+{% endblock %}
